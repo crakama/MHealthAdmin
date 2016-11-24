@@ -8,12 +8,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.dadaabs.mhealth.models.GeneralHealthModel;
+import com.dadaabs.mhealth.models.HygeneTipsModel;
 import com.firebase.client.Firebase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class UpdateGeneralHealth extends AppCompatActivity {
-
+public class UpdateHygieneTips extends AppCompatActivity {
     EditText title,updateDetails,organization;
     DatabaseReference db;
     DatabaseOperations dbOperationsHelper;
@@ -21,7 +21,7 @@ public class UpdateGeneralHealth extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_general_health);
+        setContentView(R.layout.activity_update_hygiene_tips);
         Firebase.setAndroidContext(this);
         db = FirebaseDatabase.getInstance().getReference();
         dbOperationsHelper = new DatabaseOperations(db);
@@ -39,28 +39,28 @@ public class UpdateGeneralHealth extends AppCompatActivity {
                 /**
                  * GET DATA
                  */
-                String healthtitle = title.getText().toString();
-                String healthBody = updateDetails.getText().toString();
-                String healthorganization = organization.getText().toString();
+                String hygienetitle = title.getText().toString();
+                String hygieneBody = updateDetails.getText().toString();
+                String hygieneorganization = organization.getText().toString();
 
                 /**
                  * SET DATA
                  */
-                GeneralHealthModel dbModel = new GeneralHealthModel();
-                dbModel.setTitle(healthtitle);
-                dbModel.setTitleBody(healthBody);
-                dbModel.setOraganization(healthorganization);
+                HygeneTipsModel dbModel = new HygeneTipsModel();
+                dbModel.setTitle(hygienetitle);
+                dbModel.setTitleBody(hygieneBody);
+                dbModel.setOraganization(hygieneorganization);
                 /*** SIMPLE VALIDATION ***/
-                if(healthtitle != null && healthBody.length() > 0){
+                if(hygienetitle != null && hygieneBody.length() > 0){
 
-                    if(dbOperationsHelper.saveGeneralHealth(dbModel)){
+                    if(dbOperationsHelper.saveHygeneTips(dbModel)){
                         /** IF NEWS SAVED, CLEAR EDIT TEXT */
                         title.setText("");
                         updateDetails.setText("");
                         organization.setText("");
 
                     }else{
-                        Toast.makeText(UpdateGeneralHealth.this, "MUST NOT BE EMPTY", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UpdateHygieneTips.this, "MUST NOT BE EMPTY", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

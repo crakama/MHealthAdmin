@@ -8,20 +8,22 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.dadaabs.mhealth.models.GeneralHealthModel;
+import com.dadaabs.mhealth.models.MotherCareModel;
 import com.firebase.client.Firebase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class UpdateGeneralHealth extends AppCompatActivity {
+public class UpdateMotherCare extends AppCompatActivity {
 
     EditText title,updateDetails,organization;
     DatabaseReference db;
     DatabaseOperations dbOperationsHelper;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_general_health);
+        setContentView(R.layout.activity_update_mother_care);
         Firebase.setAndroidContext(this);
         db = FirebaseDatabase.getInstance().getReference();
         dbOperationsHelper = new DatabaseOperations(db);
@@ -39,28 +41,28 @@ public class UpdateGeneralHealth extends AppCompatActivity {
                 /**
                  * GET DATA
                  */
-                String healthtitle = title.getText().toString();
-                String healthBody = updateDetails.getText().toString();
-                String healthorganization = organization.getText().toString();
+                String caretitle = title.getText().toString();
+                String careBody = updateDetails.getText().toString();
+                String careorganization = organization.getText().toString();
 
                 /**
                  * SET DATA
                  */
-                GeneralHealthModel dbModel = new GeneralHealthModel();
-                dbModel.setTitle(healthtitle);
-                dbModel.setTitleBody(healthBody);
-                dbModel.setOraganization(healthorganization);
+                MotherCareModel dbModel = new MotherCareModel();
+                dbModel.setTitle(caretitle);
+                dbModel.setTitleBody(careBody);
+                dbModel.setOraganization(careorganization);
                 /*** SIMPLE VALIDATION ***/
-                if(healthtitle != null && healthBody.length() > 0){
+                if(caretitle != null && careBody.length() > 0){
 
-                    if(dbOperationsHelper.saveGeneralHealth(dbModel)){
+                    if(dbOperationsHelper.saveMotherCare(dbModel)){
                         /** IF NEWS SAVED, CLEAR EDIT TEXT */
                         title.setText("");
                         updateDetails.setText("");
                         organization.setText("");
 
                     }else{
-                        Toast.makeText(UpdateGeneralHealth.this, "MUST NOT BE EMPTY", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UpdateMotherCare.this, "MUST NOT BE EMPTY", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

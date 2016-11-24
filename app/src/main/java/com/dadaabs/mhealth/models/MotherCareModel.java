@@ -30,5 +30,13 @@ public class MotherCareModel {
         this.titleBody = titleBody;
     }
 
-    private String title,titleBody;
+    private String title,titleBody,oraganization;
+
+    public String getOraganization() {
+        return oraganization;
+    }
+
+    public void setOraganization(String oraganization) {
+        this.oraganization = oraganization;
+    }
 }
